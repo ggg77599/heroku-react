@@ -1,32 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-// import './App.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
-  //return (
-  //  <div className="App">
-  //    <header className="App-header">
-  //      <img src={logo} className="App-logo" alt="logo" />
-  //      <p>
-  //        Edit <code>src/App.js</code> and save to reload.
-  //      </p>
-  //      <a
-  //        className="App-link"
-  //        href="https://reactjs.org"
-  //        target="_blank"
-  //        rel="noopener noreferrer"
-  //      >
-  //        Learn React
-  //      </a>
-  //    </header>
-  //  </div>
-  //);
+  const [aList, setList] = useState([]);
+
+  useEffect(() => {
+    axios.get("https://mrgreact.herokuapp.com/api/getList").then(res => {
+      setList(res.data.list);
+    });
+  }, []);
+
+  const renderList = () => {
+    return aList.map(function(list){return <li>{list}</li>});
+  };
 
   return (
     <div>
+      {renderList()}
       <img src="https://i1.achangpro.com/img.inmywordz.com/uploads/20171002203252_63.png" />
     </div>
-  )
+  );
 }
 
 export default App;
