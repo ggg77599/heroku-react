@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://localhost:8080/' : 'https://mrgreact.herokuapp.com/'
+
 function App() {
   const [aList, setList] = useState([]);
 
   useEffect(() => {
-    axios.get("https://mrgreact.herokuapp.com/api/getList").then(res => {
+    axios.get("/api/getList").then(res => {
       setList(res.data.list);
     });
   }, []);
